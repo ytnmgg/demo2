@@ -1,0 +1,28 @@
+#components-layout-demo-side .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.main-container {
+  width: 200px;
+  line-height: 62px;
+  color: aliceblue;
+}
+
+.main-logo {
+  width: 80px;
+  padding-left: 20px;
+  font-size: 40px;
+  float: left;
+}
+
+.main-title {
+  font-size: 34px;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.main-title:hover {
+  cursor: default;
+}
