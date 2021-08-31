@@ -24,8 +24,10 @@ function replaceMiniCssExtractPlugin(config) {
     );
 
     // 修改该plugin的配置项
-    plugin.options.filename = `static/${version}/css/[name].css`;
-    plugin.options.chunkFilename = `static/${version}/css/[name].chunk.css`;
+    if (plugin != undefined ) {
+        plugin.options.filename = `static/${version}/css/[name].css`;
+        plugin.options.chunkFilename = `static/${version}/css/[name].chunk.css`;
+    }
 }
 
 module.exports = override (

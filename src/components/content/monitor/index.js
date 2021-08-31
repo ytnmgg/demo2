@@ -5,14 +5,19 @@ import PubSub from "pubsub-js";
 import { ReloadOutlined } from "@ant-design/icons";
 
 import Contianers from "./docker-containers";
-import Nginx_Access from './nginx-access';
-import { TP_DOCKER_CONTAINERS_RELOAD } from "../../../common/config";
+import Nginx_Access from "./nginx-access";
+import {
+  TP_DOCKER_CONTAINERS_RELOAD,
+  TP_DOCKER_NGINX_RELOAD,
+} from "../../../common/config";
 
 import "./index.css";
 
 class Monitor extends Component {
-  publishReshMsg = () => {
-    PubSub.publish(TP_DOCKER_CONTAINERS_RELOAD, {});
+  publishReshMsg = (topic) => {
+    return () => {
+      PubSub.publish(topic, {});
+    };
   };
 
   render() {
@@ -20,8 +25,22 @@ class Monitor extends Component {
       <div>
         <Row gutter={16}>
           <Col span={8}>
-            <Card title="Nginx 今日访问" bordered={false}>
-              <Nginx_Access/>
+            <Card
+              title="Nginx 访问"
+              bordered={false}
+              extra={
+                <a
+                  className="a-gray"
+                  href="#"
+                  onClick={this.publishReshMsg(TP_DOCKER_NGINX_RELOAD)}
+                >
+                  <Tooltip title="刷新数据">
+                    <ReloadOutlined />
+                  </Tooltip>
+                </a>
+              }
+            >
+              <Nginx_Access />
             </Card>
           </Col>
           <Col span={16}>
@@ -29,7 +48,11 @@ class Monitor extends Component {
               title="容器列表"
               bordered={false}
               extra={
-                <a className="a-gray" href="#" onClick={this.publishReshMsg}>
+                <a
+                  className="a-gray"
+                  href="#"
+                  onClick={this.publishReshMsg(TP_DOCKER_CONTAINERS_RELOAD)}
+                >
                   <Tooltip title="刷新列表">
                     <ReloadOutlined />
                   </Tooltip>

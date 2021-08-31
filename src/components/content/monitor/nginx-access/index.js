@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Statistic, Row, Col } from "antd";
+import { Statistic, Row, Col,Spin } from "antd";
+import PubSub from "pubsub-js";
 
 import get_nginx_status from "../../../../data/logs/nginx-status";
+import { TP_DOCKER_NGINX_RELOAD } from "../../../../common/config";
 
 class Nginx_Access extends Component {
   state = {
@@ -17,12 +19,12 @@ class Nginx_Access extends Component {
   };
 
   componentDidMount() {
-    // this.token = PubSub.subscribe(TP_DOCKER_CONTAINERS_RELOAD, (msg, data) => {
-    //   this.state.loading = true;
-    //   this.setState(this.state);
+    this.token = PubSub.subscribe(TP_DOCKER_NGINX_RELOAD, (msg, data) => {
+      this.state.loading = true;
+      this.setState(this.state);
 
-    //   list_containers("", this.renderTable);
-    // });
+      get_nginx_status("", this.renderChart);
+    });
 
     get_nginx_status("", this.renderChart);
   }
@@ -35,6 +37,7 @@ class Nginx_Access extends Component {
     const { data } = this.state;
     return (
       <div>
+        <Spin spinning={this.state.loading}>
         <Row gutter={[16, 32]}>
           <Col span={6}>
             <Statistic title="200响应" value={data.countOf200} />
@@ -52,6 +55,7 @@ class Nginx_Access extends Component {
             <Statistic title="其它响应" value={data.countOfOthers} />
           </Col>
         </Row>
+        </Spin>
       </div>
     );
   }
