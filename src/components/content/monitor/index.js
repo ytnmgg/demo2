@@ -35,16 +35,11 @@ class Monitor extends Component {
               extra={
                 <div>
                   <Space size={20}>
-                    <a
-                      className="a-gray"
-                      href=""
-                      onClick={this.toNginxAccessDetail}
-                    >
+                    <a className="a-gray" onClick={this.toNginxAccessDetail}>
                       <Tooltip title="到列表详情页">查看详情</Tooltip>
                     </a>
                     <a
                       className="a-gray"
-                      href=""
                       onClick={this.publishReshMsg(TP_DOCKER_NGINX_RELOAD)}
                     >
                       <Tooltip title="刷新数据">
@@ -65,7 +60,6 @@ class Monitor extends Component {
               extra={
                 <a
                   className="a-gray"
-                  href=""
                   onClick={this.publishReshMsg(TP_DOCKER_CONTAINERS_RELOAD)}
                 >
                   <Tooltip title="刷新列表">
