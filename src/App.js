@@ -23,19 +23,16 @@ class App extends Component {
       <div>
         <Layout style={{ minHeight: "100vh" }}>
           <Left_Menue />
-          
-
 
           <Layout className="site-layout">
-          <Top_Menue />
-            <Content style={{ margin: "0 16px" }}>
+            <Top_Menue />
+            <Content className="main-content" >
               {/* <Breadcrumb style={{ margin: "16px 0" }}>
                 <Breadcrumb.Item>User</Breadcrumb.Item>
                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
               </Breadcrumb> */}
-              
-              <MyContent/>
-              
+
+              <MyContent />
             </Content>
             <Footer style={{ textAlign: "center" }}>
               Rick Design ©2018 Created by Rick Wang

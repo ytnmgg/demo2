@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Tooltip } from "antd";
+import { Row, Col, Card, Tooltip, Space } from "antd";
 import PubSub from "pubsub-js";
 
 import { ReloadOutlined } from "@ant-design/icons";
@@ -20,24 +20,39 @@ class Monitor extends Component {
     };
   };
 
+  toNginxAccessDetail = () => {
+    this.props.history.push("/monitor/nginx-access-detail");
+  };
+
   render() {
     return (
       <div>
         <Row gutter={16}>
           <Col span={8}>
             <Card
-              title="Nginx 访问"
+              title="Nginx日访问量"
               bordered={false}
               extra={
-                <a
-                  className="a-gray"
-                  href="#"
-                  onClick={this.publishReshMsg(TP_DOCKER_NGINX_RELOAD)}
-                >
-                  <Tooltip title="刷新数据">
-                    <ReloadOutlined />
-                  </Tooltip>
-                </a>
+                <div>
+                  <Space size={20}>
+                    <a
+                      className="a-gray"
+                      href=""
+                      onClick={this.toNginxAccessDetail}
+                    >
+                      <Tooltip title="到列表详情页">查看详情</Tooltip>
+                    </a>
+                    <a
+                      className="a-gray"
+                      href=""
+                      onClick={this.publishReshMsg(TP_DOCKER_NGINX_RELOAD)}
+                    >
+                      <Tooltip title="刷新数据">
+                        <ReloadOutlined />
+                      </Tooltip>
+                    </a>
+                  </Space>
+                </div>
               }
             >
               <Nginx_Access />
@@ -50,7 +65,7 @@ class Monitor extends Component {
               extra={
                 <a
                   className="a-gray"
-                  href="#"
+                  href=""
                   onClick={this.publishReshMsg(TP_DOCKER_CONTAINERS_RELOAD)}
                 >
                   <Tooltip title="刷新列表">
