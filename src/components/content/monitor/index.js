@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Tooltip, Space } from "antd";
+import { Row, Col, Card, Tooltip, Space, Button } from "antd";
 import PubSub from "pubsub-js";
 
 import { ReloadOutlined } from "@ant-design/icons";
 
 import Contianers from "./docker-containers";
-import Nginx_Access from "./nginx-access";
+import NginxAccess from "./nginx-access";
 import {
   TP_DOCKER_CONTAINERS_RELOAD,
   TP_DOCKER_NGINX_RELOAD,
@@ -30,42 +30,50 @@ class Monitor extends Component {
         <Row gutter={16}>
           <Col span={8}>
             <Card
+              className="monitor-card"
               title="Nginx日访问量"
               bordered={false}
               extra={
                 <div>
                   <Space size={20}>
-                    <a className="a-gray" onClick={this.toNginxAccessDetail}>
+                    <Button
+                      type="link"
+                      className="a-gray"
+                      onClick={this.toNginxAccessDetail}
+                    >
                       <Tooltip title="到列表详情页">查看详情</Tooltip>
-                    </a>
-                    <a
+                    </Button>
+                    <Button
+                      type="link"
                       className="a-gray"
                       onClick={this.publishReshMsg(TP_DOCKER_NGINX_RELOAD)}
                     >
                       <Tooltip title="刷新数据">
                         <ReloadOutlined />
                       </Tooltip>
-                    </a>
+                    </Button>
                   </Space>
                 </div>
               }
             >
-              <Nginx_Access />
+              <NginxAccess />
             </Card>
           </Col>
           <Col span={16}>
             <Card
+              className="monitor-card"
               title="容器列表"
               bordered={false}
               extra={
-                <a
+                <Button
+                  type="link"
                   className="a-gray"
                   onClick={this.publishReshMsg(TP_DOCKER_CONTAINERS_RELOAD)}
                 >
                   <Tooltip title="刷新列表">
                     <ReloadOutlined />
                   </Tooltip>
-                </a>
+                </Button>
               }
             >
               <Contianers />

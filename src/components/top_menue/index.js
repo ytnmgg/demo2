@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
-
+import { Button } from "antd";
 import {
   SearchOutlined,
   QuestionCircleOutlined,
@@ -9,8 +8,6 @@ import {
 
 import "./index.css";
 
-const { Header, Content, Footer, Sider } = Layout;
-
 class Top_Menue extends Component {
   render() {
     return (
@@ -18,19 +15,19 @@ class Top_Menue extends Component {
         <div className="control-list">
           <ul>
             <li>
-              <a className="a-gray" href="#">
+              <Button type="link" className="a-gray">
                 <SearchOutlined />
-              </a>
+              </Button>
             </li>
             <li>
-              <a className="a-gray" href="#">
+              <Button type="link" className="a-gray">
                 <QuestionCircleOutlined />
-              </a>
+              </Button>
             </li>
             <li>
-              <a className="a-gray" href="#">
+              <Button type="link" className="a-gray">
                 <BellOutlined />
-              </a>
+              </Button>
             </li>
           </ul>
         </div>

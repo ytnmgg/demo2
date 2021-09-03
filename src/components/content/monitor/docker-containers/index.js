@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Tag, Space, Tooltip } from "antd";
+import { Table, Tag, Space, Tooltip,Button } from "antd";
 import PubSub from "pubsub-js";
 
 import list_containers from "../../../../data/docker/list-container";
@@ -13,9 +13,7 @@ class Containers extends Component {
 
   componentDidMount() {
     this.token = PubSub.subscribe(TP_DOCKER_CONTAINERS_RELOAD, (msg, data) => {
-      this.state.loading = true;
-      this.setState(this.state);
-      
+      this.setState({ ...this.state, loading: true });
       list_containers("", this.renderTable);
     });
 
@@ -107,7 +105,9 @@ class Containers extends Component {
       render: (text, record, index) => {
         return (
           <Space size="middle">
-            <a onClick={this.clickDetail(record)}>详情</a>
+            <Button type="link" onClick={this.clickDetail(record)}>
+              详情
+            </Button>
           </Space>
         );
       },

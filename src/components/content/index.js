@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, NavLink, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Monitor from './monitor';
 import Other from './other';

@@ -1,37 +1,24 @@
 import React, { Component } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { Layout } from "antd";
 
-import Left_Menue from "./components/left_menue";
-import Top_Menue from "./components/top_menue";
+import LeftMenue from "./components/left_menue";
+import TopMenue from "./components/top_menue";
 import MyContent from "./components/content";
 
 import "./App.css";
 
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const { Content, Footer } = Layout;
 
 class App extends Component {
   render() {
     return (
       <div>
         <Layout style={{ minHeight: "100vh" }}>
-          <Left_Menue />
+          <LeftMenue />
 
           <Layout className="site-layout">
-            <Top_Menue />
-            <Content className="main-content" >
-              {/* <Breadcrumb style={{ margin: "16px 0" }}>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb> */}
-
+            <TopMenue />
+            <Content className="main-content">
               <MyContent />
             </Content>
             <Footer style={{ textAlign: "center" }}>

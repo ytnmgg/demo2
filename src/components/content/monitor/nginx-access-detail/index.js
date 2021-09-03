@@ -62,15 +62,17 @@ const columns = [
 ];
 
 class Nginx_Access_Detail extends Component {
+  range = {
+    gmtBegin: moment().startOf("day").format("YYYY-MM-DD HH:mm:ss"),
+    gmtEnd: moment().endOf("day").format("YYYY-MM-DD HH:mm:ss"),
+    pageIndex: 1,
+    pageSize: 10,
+  };
+
   state = {
     data: [],
     loading: false,
-    range: {
-      gmtBegin: moment().startOf("day").format("YYYY-MM-DD HH:mm:ss"),
-      gmtEnd: moment().endOf("day").format("YYYY-MM-DD HH:mm:ss"),
-      pageIndex: 1,
-      pageSize: 10,
-    },
+    range: this.range,
     total: 0,
   };
 
@@ -104,41 +106,38 @@ class Nginx_Access_Detail extends Component {
   };
 
   refreshTable = () => {
-    this.state.loading = true;
-    this.setState(this.state);
-
-    get_nginx_access_detail(this.state.range, this.renderTable);
+    this.setState({ ...this.state, range: this.range, loading: true });
+    get_nginx_access_detail(this.range, this.renderTable);
   };
 
   renderTable = (data) => {
     this.fixDataAndMakeStatusFilter(data.data);
-
-    this.state.data = data.data;
-    this.state.loading = false;
-    this.state.total = data.totalCount;
-
-    this.setState(this.state);
+    this.setState({
+      ...this.state,
+      data: data.data,
+      loading: false,
+      total: data.totalCount,
+    });
   };
 
   changeRange = (dates) => {
-    if (dates != undefined) {
-      this.state.range = {
+    if (dates !== undefined) {
+      this.range = {
         gmtBegin: dates[0]
           .set({ hours: 0, minutes: 0, seconds: 0 })
           .format("YYYY-MM-DD HH:mm:ss"),
         gmtEnd: dates[1]
           .set({ hours: 23, minutes: 59, seconds: 59 })
           .format("YYYY-MM-DD HH:mm:ss"),
-        pageIndex: this.state.range.pageIndex,
-        pageSize: this.state.range.pageSize,
+        pageIndex: this.range.pageIndex,
+        pageSize: this.range.pageSize,
       };
     }
   };
 
   onPaginationChange = (page, pageSize) => {
-    this.state.range.pageIndex = page === 0 ? 1 : page;
-    this.state.range.pageSize = pageSize;
-
+    this.range.pageIndex = page === 0 ? 1 : page;
+    this.range.pageSize = pageSize;
     this.refreshTable();
   };
 
@@ -150,9 +149,9 @@ class Nginx_Access_Detail extends Component {
             <Col span={24}>
               <Breadcrumb>
                 <Breadcrumb.Item>
-                  <a href="" onClick={this.goBackToMonitor}>
+                  <Button type="link" onClick={this.goBackToMonitor}>
                     监控面板首页
-                  </a>
+                  </Button>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>Nginx日志详情</Breadcrumb.Item>
               </Breadcrumb>

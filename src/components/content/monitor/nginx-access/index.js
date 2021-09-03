@@ -30,8 +30,7 @@ class Nginx_Access extends Component {
 
   componentDidMount() {
     this.token = PubSub.subscribe(TP_DOCKER_NGINX_RELOAD, (msg, data) => {
-      this.state.loading = true;
-      this.setState(this.state);
+      this.setState({ ...this.state, loading: true });
 
       get_nginx_status("", this.renderChart);
     });
@@ -65,7 +64,10 @@ class Nginx_Access extends Component {
                 title=""
                 value={Math.abs(countOf200Diff)}
                 precision={2}
-                valueStyle={{ color: "#3f8600", fontSize: 12 }}
+                valueStyle={{
+                  color: countOf200Diff >= 0 ? "#3f8600" : "#cf1322",
+                  fontSize: 12,
+                }}
                 prefix={
                   countOf200Diff >= 0 ? (
                     <ArrowUpOutlined />
@@ -82,7 +84,10 @@ class Nginx_Access extends Component {
                 title=""
                 value={Math.abs(countOf4xxDiff)}
                 precision={2}
-                valueStyle={{ color: "#3f8600", fontSize: 12 }}
+                valueStyle={{
+                  color: countOf4xxDiff >= 0 ? "#3f8600" : "#cf1322",
+                  fontSize: 12,
+                }}
                 prefix={
                   countOf4xxDiff >= 0 ? (
                     <ArrowUpOutlined />

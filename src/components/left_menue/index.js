@@ -11,7 +11,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./index.css";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 class Left_Menue extends Component {
