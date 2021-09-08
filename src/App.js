@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Layout } from "antd";
+import { withRouter } from "react-router-dom";
 
 import LeftMenue from "./components/left_menue";
 import TopMenue from "./components/top_menue";
@@ -9,8 +10,14 @@ import "./App.css";
 
 const { Content, Footer } = Layout;
 
+export const myProps = {
+  history:{}
+};
+
 class App extends Component {
+
   render() {
+    myProps.history = this.props.history;
     return (
       <div>
         <Layout style={{ minHeight: "100vh" }}>
@@ -31,4 +38,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

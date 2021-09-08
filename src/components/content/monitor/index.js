@@ -6,12 +6,14 @@ import { ReloadOutlined } from "@ant-design/icons";
 
 import Contianers from "./docker-containers";
 import NginxAccess from "./nginx-access";
+import NginxAccessPoints from "./nginx-access-points";
 import {
   TP_DOCKER_CONTAINERS_RELOAD,
   TP_DOCKER_NGINX_RELOAD,
 } from "../../../common/config";
 
 import "./index.css";
+
 
 class Monitor extends Component {
   publishReshMsg = (topic) => {
@@ -27,7 +29,7 @@ class Monitor extends Component {
   render() {
     return (
       <div>
-        <Row gutter={16}>
+        <Row gutter={[16, 16]}>
           <Col span={8}>
             <Card
               className="monitor-card"
@@ -60,6 +62,9 @@ class Monitor extends Component {
             </Card>
           </Col>
           <Col span={16}>
+            <NginxAccessPoints/>
+          </Col>
+          <Col span={24}>
             <Card
               className="monitor-card"
               title="容器列表"

@@ -14,10 +14,14 @@ class Containers extends Component {
   componentDidMount() {
     this.token = PubSub.subscribe(TP_DOCKER_CONTAINERS_RELOAD, (msg, data) => {
       this.setState({ ...this.state, loading: true });
-      list_containers("", this.renderTable);
+      list_containers().then((data) => {
+        this.renderTable(data);
+      });
     });
 
-    list_containers("", this.renderTable);
+    list_containers().then((data) => {
+      this.renderTable(data);
+    });
   }
 
   componentWillUnmount() {

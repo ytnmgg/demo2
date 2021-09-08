@@ -1,13 +1,5 @@
-import axios from "axios";
+import { get } from "../../request";
 
-
-export default function get_nginx_status(params, callback) {
-  axios.get("/host/log/nginx/status.json").then(
-    (response) => {
-        callback(response.data)
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
+export default function get_nginx_status(params) {
+  return get("/host/log/nginx/status.json");
 }

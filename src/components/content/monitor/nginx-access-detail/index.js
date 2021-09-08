@@ -71,13 +71,29 @@ class Nginx_Access_Detail extends Component {
 
   state = {
     data: [],
-    loading: false,
+    loading: true,
     range: this.range,
     total: 0,
   };
 
   componentDidMount() {
-    this.refreshTable();
+    get_nginx_access_detail(this.range).then((data) => {
+      this.renderTable(data);
+    });
+  }
+
+  // 加载跳转地址传递过来的时间点，初始化时间选择框
+  loadPointParam() {
+    if (
+      this.props.location.params !== undefined &&
+      this.props.location.params.point !== undefined
+    ) {
+      this.range = {
+        ...this.range,
+        gmtBegin: this.props.location.params.point + ":00:00",
+        gmtEnd: this.props.location.params.point + ":59:59",
+      };
+    }
   }
 
   goBackToMonitor = () => {
@@ -107,7 +123,9 @@ class Nginx_Access_Detail extends Component {
 
   refreshTable = () => {
     this.setState({ ...this.state, range: this.range, loading: true });
-    get_nginx_access_detail(this.range, this.renderTable);
+    get_nginx_access_detail(this.range).then((data) => {
+      this.renderTable(data);
+    });
   };
 
   renderTable = (data) => {
@@ -120,15 +138,11 @@ class Nginx_Access_Detail extends Component {
     });
   };
 
-  changeRange = (dates) => {
+  changeRange = (dates, dateStrings) => {
     if (dates !== undefined) {
       this.range = {
-        gmtBegin: dates[0]
-          .set({ hours: 0, minutes: 0, seconds: 0 })
-          .format("YYYY-MM-DD HH:mm:ss"),
-        gmtEnd: dates[1]
-          .set({ hours: 23, minutes: 59, seconds: 59 })
-          .format("YYYY-MM-DD HH:mm:ss"),
+        gmtBegin: dates[0].set({ seconds: 0 }).format("YYYY-MM-DD HH:mm:ss"),
+        gmtEnd: dates[1].set({ seconds: 59 }).format("YYYY-MM-DD HH:mm:ss"),
         pageIndex: this.range.pageIndex,
         pageSize: this.range.pageSize,
       };
@@ -142,6 +156,7 @@ class Nginx_Access_Detail extends Component {
   };
 
   render() {
+    this.loadPointParam();
     return (
       <div>
         <div className="top-search">
@@ -159,17 +174,23 @@ class Nginx_Access_Detail extends Component {
             <Col span={24} className="ant-page-header-heading-title">
               <span>查询日志</span>
             </Col>
-            <Col span={8}>
-              起止日期：
+            <Col span={24}>
+              起止时间：
               <RangePicker
-                defaultValue={[moment().startOf("day"), moment().endOf("day")]}
-                format={"YYYY/MM/DD"}
+                defaultValue={[
+                  moment(this.range.gmtBegin, "YYYY-MM-DD HH:mm:ss"),
+                  moment(this.range.gmtEnd, "YYYY-MM-DD HH:mm:ss"),
+                ]}
                 disabledDate={this.disabledDate}
                 onChange={this.changeRange}
+                showTime={{ format: "HH:mm" }}
+                format="YYYY-MM-DD HH:mm"
               />
-            </Col>
-            <Col span={8}>
-              <Button type="primary" onClick={this.refreshTable}>
+              <Button
+                type="primary"
+                onClick={this.refreshTable}
+                style={{ marginLeft: "10px" }}
+              >
                 查询
               </Button>
             </Col>

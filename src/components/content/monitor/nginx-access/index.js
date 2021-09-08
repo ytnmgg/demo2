@@ -32,10 +32,18 @@ class Nginx_Access extends Component {
     this.token = PubSub.subscribe(TP_DOCKER_NGINX_RELOAD, (msg, data) => {
       this.setState({ ...this.state, loading: true });
 
-      get_nginx_status("", this.renderChart);
+      get_nginx_status().then((data) => {
+        this.renderChart(data);
+      });
     });
 
-    get_nginx_status("", this.renderChart);
+    get_nginx_status().then((data) => {
+      this.renderChart(data);
+    });
+  }
+
+  componentWillUnmount() {
+    PubSub.unsubscribe(this.token);
   }
 
   renderChart = (data) => {
