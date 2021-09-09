@@ -9,10 +9,23 @@ import {
 import { Layout, Menu } from "antd";
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
 import "./index.css";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
+
+const pathToMenue = {
+  monitor: {
+    openKey: "1",
+    menuKey: "monitor",
+  },
+  app: {
+    openKey: "1",
+    menuKey: "app",
+  },
+};
 
 class Left_Menue extends Component {
   state = {
@@ -24,9 +37,15 @@ class Left_Menue extends Component {
     this.setState({ collapsed: collapsed, displayMainTitle: !collapsed });
   };
 
-  render() {
-    const { collapsed, displayMainTitle } = this.state;
+  getMenueKey() {
+    const { pathname } = this.props.location;
+    const path = pathname.split("/")[1] || "monitor";
+    return pathToMenue[path];
+  }
 
+  render() {
+    const { menuKey, openKey } = this.getMenueKey();
+    const { collapsed, displayMainTitle } = this.state;
     return (
       <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
         <div className="main-container clearfix">
@@ -41,12 +60,18 @@ class Left_Menue extends Component {
             Focus
           </div>
         </div>
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+        <Menu
+          theme="dark"
+          // defaultSelectedKeys={["1"]}
+          mode="inline"
+          defaultSelectedKeys={[menuKey]}
+          defaultOpenKeys={[openKey]}
+        >
           <SubMenu key="1" icon={<DashboardOutlined />} title="监控">
-            <Menu.Item key="1_1">
+            <Menu.Item key="monitor">
               <NavLink to="/monitor">总体</NavLink>
             </Menu.Item>
-            <Menu.Item key="1_2">
+            <Menu.Item key="app">
               <NavLink to="/app">应用</NavLink>
             </Menu.Item>
           </SubMenu>
@@ -71,4 +96,4 @@ class Left_Menue extends Component {
   }
 }
 
-export default Left_Menue;
+export default withRouter(Left_Menue);
