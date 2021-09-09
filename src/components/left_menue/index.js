@@ -42,9 +42,14 @@ class Left_Menue extends Component {
           </div>
         </div>
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item key="1" icon={<DashboardOutlined />}>
-            <NavLink to="/monitor">监控</NavLink>
-          </Menu.Item>
+          <SubMenu key="1" icon={<DashboardOutlined />} title="监控">
+            <Menu.Item key="1_1">
+              <NavLink to="/monitor">总体</NavLink>
+            </Menu.Item>
+            <Menu.Item key="1_2">
+              <NavLink to="/app">应用</NavLink>
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item key="2" icon={<DesktopOutlined />}>
             <NavLink to="/other">其它</NavLink>
           </Menu.Item>

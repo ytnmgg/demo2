@@ -1,5 +1,4 @@
-@import '~antd/dist/antd.css';
-
+@import "~antd/dist/antd.css";
 
 a.a-gray:link,
 a.a-gray:visited,
@@ -9,7 +8,7 @@ a.a-gray:active {
 }
 
 a.a-gray:hover {
-    color: rgb(170, 170, 170);
+  color: rgb(170, 170, 170);
 }
 
 .site-layout .site-layout-background {
@@ -17,10 +16,10 @@ a.a-gray:hover {
 }
 
 .clearfix::before,
-.clearfix::after{
-    content:'';
-    display:table;
-    clear:both;
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .footer {
@@ -40,5 +39,11 @@ a.a-gray:hover {
   display: inline;
   margin: 0;
   padding: 0;
-  color:#1890ff;
+  color: #1890ff;
+}
+
+.font-title {
+  color: #000000d9;
+  font-weight: 500;
+  font-size: 16px;
 }

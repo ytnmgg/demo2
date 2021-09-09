@@ -157,6 +157,11 @@ axios.interceptors.response.use(
       //     duration: 5 * 1000,
       // })
     }
+    // actuator health接口，db超时返回503
+    if (response.status === 503) {
+        return response.data;
+    }
+
     // message.error(`${status}:${text}`);
     // throw error
     // return error
