@@ -40,7 +40,7 @@ class Left_Menue extends Component {
   getMenueKey() {
     const { pathname } = this.props.location;
     const path = pathname.split("/")[1] || "monitor";
-    return pathToMenue[path];
+    return pathToMenue[path] || pathToMenue.monitor;
   }
 
   render() {
