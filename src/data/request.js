@@ -29,8 +29,8 @@ const get = (url, params, _options) => {
    * @param { Object } 请求参数
    *  data POST请求请求参数，对象形式
    */
-const post = (url, data, _options) => {
-    return request({ ..._options, data, url }, 'POST')
+ const post = (url, data, _options) => {
+    return request({ ..._options, data, url, method:'POST' })
 }
   
 export { get, post }
