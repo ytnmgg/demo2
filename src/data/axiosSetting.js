@@ -96,6 +96,11 @@ axios.interceptors.response.use(
     //   return response.data;
     // }
 
+    if (response.data.code === "302") {
+      window.location.href = "/login_page?callback=" + window.location.href;
+      return;
+    }
+
     return response.data;
   },
   (error) => {

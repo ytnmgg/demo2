@@ -11,13 +11,15 @@ import "./App.css";
 const { Content, Footer } = Layout;
 
 export const myProps = {
-  history:{}
+  history:{},
+  location:{}
 };
 
 class App extends Component {
 
   render() {
     myProps.history = this.props.history;
+    myProps.location = this.props.location;
     return (
       <div>
         <Layout style={{ minHeight: "100vh" }}>

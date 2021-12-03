@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import { Line } from "@ant-design/charts";
+// import Line from "@ant-design/charts/es/plots/line";
 import { Spin, Card, Tooltip, Space, Button, DatePicker } from "antd";
 import { withRouter } from "react-router-dom";
 

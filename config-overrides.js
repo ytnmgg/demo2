@@ -1,6 +1,8 @@
 const {override} = require("customize-cra");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const version = 'v0.0.1';
 
 const replaceConfig = () => (config) => {
@@ -11,6 +13,13 @@ const replaceConfig = () => (config) => {
 
     // 修改css文件路径
     replaceMiniCssExtractPlugin(config);
+
+    //// webpack-bundle-analyzer
+    // config.plugins.push(new BundleAnalyzerPlugin({
+    //     analyzerMode: 'server',
+    //     generateStatsFile: true,
+    //     statsOptions: { source: false }
+    // }));
 
     return config;
 };

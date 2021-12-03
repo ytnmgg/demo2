@@ -6,6 +6,8 @@ import Actuator from './actuator';
 import Other from "./other";
 import Nginx_Access_Detail from "./monitor/nginx-access-detail";
 import E403 from './e403';
+import User from './user';
+import Redis from './redis';
 
 class Content extends Component {
   render() {
@@ -18,6 +20,8 @@ class Content extends Component {
           />
           <Route path="/monitor" component={Monitor} />
           <Route path="/app" component={Actuator} />
+          <Route path="/user" component={User} />
+          <Route path="/redis" component={Redis} />
           <Route path="/other" component={Other} />
           <Route path="/exception/403" component={E403}/>
           <Redirect to="/monitor" />

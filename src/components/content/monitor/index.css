@@ -2,3 +2,8 @@
 .monitor-card{
   height: 290px;
 }
+
+.middle {
+  width: 100px;
+  margin: 40px auto;
+}

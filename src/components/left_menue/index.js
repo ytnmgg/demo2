@@ -25,6 +25,14 @@ const pathToMenue = {
     openKey: "1",
     menuKey: "app",
   },
+  user: {
+    openKey: "1",
+    menuKey: "user",
+  },
+  redis: {
+    openKey: "1",
+    menuKey: "redis",
+  },
 };
 
 class Left_Menue extends Component {
@@ -73,6 +81,12 @@ class Left_Menue extends Component {
             </Menu.Item>
             <Menu.Item key="app">
               <NavLink to="/app">应用</NavLink>
+            </Menu.Item>
+            <Menu.Item key="user">
+              <NavLink to="/user">用户</NavLink>
+            </Menu.Item>
+            <Menu.Item key="redis">
+              <NavLink to="/redis">Redis</NavLink>
             </Menu.Item>
           </SubMenu>
           <Menu.Item key="2" icon={<DesktopOutlined />}>

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Tooltip, Space, Button } from "antd";
+import { Row, Col, Card, Tooltip, Space, Button, Spin } from "antd";
 import PubSub from "pubsub-js";
+import Loadable from 'react-loadable';
 
 import { ReloadOutlined } from "@ant-design/icons";
 
 import Contianers from "./docker-containers";
 import NginxAccess from "./nginx-access";
-import NginxAccessPoints from "./nginx-access-points";
+// import NginxAccessPoints from "./nginx-access-points";
 import {
   TP_DOCKER_CONTAINERS_RELOAD,
   TP_DOCKER_NGINX_RELOAD,
@@ -14,6 +15,23 @@ import {
 
 import "./index.css";
 
+function Loading(props) {
+  if (props.error) {
+    return <div>Error! <button onClick={ props.retry }>Retry</button></div>;
+  } else if (props.timedOut) {
+    return <div>Taking a long time... <button onClick={ props.retry }>Retry</button></div>;
+  } else if (props.pastDelay) {
+    return <div className="middle"><Spin/></div>;
+  } else {
+    return null;
+  }
+}
+
+const NginxAccessPoints = Loadable({
+  loader: () => import('./nginx-access-points'),
+  loading: Loading,
+  delay: 300, // 0.3 seconds
+});
 
 class Monitor extends Component {
   publishReshMsg = (topic) => {
@@ -27,6 +45,7 @@ class Monitor extends Component {
   };
 
   render() {
+    
     return (
       <div>
         <Row gutter={[16, 16]}>
