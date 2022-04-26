@@ -19,6 +19,7 @@ class NginxAccessPoints extends Component {
     data: [],
     loading: true,
     range: this.range,
+    grafanaSrc: "",
   };
 
   config = {
@@ -105,6 +106,20 @@ class NginxAccessPoints extends Component {
   };
 
   componentDidMount() {
+    var nowDate = new Date();
+    var nowDateMs = Date.parse(nowDate);
+    nowDate.setDate(nowDate.getDate() - 1);
+    var dateYesterdayMs = Date.parse(nowDate);
+
+    var grafanaSrc = "http://47.99.61.11:3000/d-solo/GNa_gYQnk/nginxaccess?orgId=1&from=" + dateYesterdayMs + "&to=" + nowDateMs + "&panelId=2";
+
+    this.setState(
+      {
+        ...this.state,
+        grafanaSrc: grafanaSrc,
+      }
+    );
+
     get_nginx_access_points(this.range).then((data) => {
       this.renderLines(data);
     });
@@ -120,7 +135,7 @@ class NginxAccessPoints extends Component {
         gmtBegin: dates[0]
           .set({ hours: 0, minutes: 0, seconds: 0 })
           .format("YYYY-MM-DD HH:mm:ss"),
-        gmtEnd: dates[1]
+        gmtEnd: dates[1]    
           .set({ hours: 23, minutes: 59, seconds: 59 })
           .format("YYYY-MM-DD HH:mm:ss"),
       };
@@ -129,33 +144,35 @@ class NginxAccessPoints extends Component {
 
   render() {
     return (
-      <Card
-        className="monitor-card"
-        title="Nginx访问小时趋势"
-        bordered={false}
-        extra={
-          <div>
-            <Space size={20}>
-              起止日期：
-              <RangePicker
-                defaultValue={[moment().startOf("day"), moment().endOf("day")]}
-                format={"YYYY/MM/DD"}
-                disabledDate={this.disabledDate}
-                onChange={this.changeRange}
-              />
-              <Tooltip title="查询数据">
-                <Button type="primary" onClick={this.refreshLines}>
-                  查询
-                </Button>
-              </Tooltip>
-            </Space>
-          </div>
-        }
-      >
-        <Spin spinning={this.state.loading}>
-          <Line {...this.config} />
-        </Spin>
-      </Card>
+      <iframe src={this.state.grafanaSrc} width="450" height="200" frameborder="0"></iframe>            
+
+      // <Card
+      //   className="monitor-card"
+      //   title="Nginx访问小时趋势"
+      //   bordered={false}
+      //   extra={
+      //     <div>
+      //       <Space size={20}>
+      //         起止日期：
+      //         <RangePicker
+      //           defaultValue={[moment().startOf("day"), moment().endOf("day")]}
+      //           format={"YYYY/MM/DD"}
+      //           disabledDate={this.disabledDate}
+      //           onChange={this.changeRange}
+      //         />
+      //         <Tooltip title="查询数据">
+      //           <Button type="primary" onClick={this.refreshLines}>
+      //             查询
+      //           </Button>
+      //         </Tooltip>
+      //       </Space>
+      //     </div>
+      //   }
+      // >
+      //   <Spin spinning={this.state.loading}>
+      //     <Line {...this.config} />
+      //   </Spin>
+      // </Card>
     );
   }
 }
